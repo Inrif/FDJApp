@@ -16,10 +16,12 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito.*
-import org.mockito.junit.MockitoJUnitRunner
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.`when`
+import org.mockito.junit.MockitoJUnitRunner
 
 
 @ExperimentalCoroutinesApi
