@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FDJApp</string>
+    <string name="search_leagues">Search leagues...</string>
+    <string name="search">Search</string>
+    <string name="clear_search">Clear search</string>
+    <string name="cancel">Cancel</string>
+</resources>
