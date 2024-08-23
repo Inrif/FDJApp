@@ -1,75 +1,70 @@
-package com.abbesolo.fdjapp.data
-
-/**
- * Created by HOUNSA ROMUALD on 22/08/24.
- * Copyright (c) 2024 abbesolo. All rights reserved.
- */
+package com.abbesolo.fdjapp.data.repository
 
 import com.abbesolo.fdjapp.data.api.SportsApi
 import com.abbesolo.fdjapp.data.models.League
 import com.abbesolo.fdjapp.data.models.LeagueResponse
 import com.abbesolo.fdjapp.data.models.Team
 import com.abbesolo.fdjapp.data.models.TeamResponse
-import com.abbesolo.fdjapp.data.repositories.SportsRepository
+import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
-import org.mockito.junit.MockitoJUnitRunner
-
+import org.mockito.Mockito.*
+import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
-@RunWith(MockitoJUnitRunner::class)
-class SportsRepositoryTest {
+class SportsRepositoryImplTest {
 
     @Mock
     private lateinit var api: SportsApi
 
-    private lateinit var repository: SportsRepository
+    private lateinit var repository: SportsRepositoryImpl
 
     @Before
     fun setUp() {
-        repository = SportsRepository(api)
+        MockitoAnnotations.openMocks(this)
+        repository = SportsRepositoryImpl(api)
     }
 
     @Test
-    fun `getAllLeagues returns list of leagues`() = runTest {
+    fun `getAllLeagues returns list of LeagueEntity`() = runTest {
         // Arrange
-        val expectedLeagues = listOf(
-            League("1", "Premier League", "Soccer", "EPL", "logo_url"),
-            League("2", "La Liga", "Soccer", "LL", "logo_url")
+        val leagues = listOf(
+            League(idLeague = "1", strLeague = "Premier League", strSport = "Soccer", strLeagueAlternate = "EPL", strBadge = "logo_url_1"),
+            League(idLeague = "2", strLeague = "La Liga", strSport = "Soccer", strLeagueAlternate = "LL", strBadge = "logo_url_2")
         )
-        `when`(api.getAllLeagues()).thenReturn(LeagueResponse(expectedLeagues))
+        `when`(api.getAllLeagues()).thenReturn(LeagueResponse(leagues))
 
         // Act
         val result = repository.getAllLeagues()
 
         // Assert
-        assertEquals(expectedLeagues, result)
+        assertThat(result).hasSize(2)
+        assertThat(result[0].id).isEqualTo("1")
+        assertThat(result[0].name).isEqualTo("Premier League")
         verify(api, times(1)).getAllLeagues()
     }
 
     @Test
-    fun `getTeamsByLeague returns list of teams`() = runTest {
+    fun `getTeamsByLeague returns list of TeamEntity`() = runTest {
         // Arrange
         val leagueName = "Premier League"
-        val expectedTeams = listOf(
-            Team("1", "Manchester United", "logo_url", "Description"),
-            Team("2", "Chelsea FC", "logo_url", "Description")
+        val teams = listOf(
+            Team(idTeam = "1", strTeam = "Manchester United", strLogo = "logo_url_1", strBadge = "badge_url_1"),
+            Team(idTeam = "2", strTeam = "Chelsea FC", strLogo = "logo_url_2", strBadge = "badge_url_2")
         )
-        `when`(api.getTeamsByLeague(leagueName)).thenReturn(TeamResponse(expectedTeams))
+        `when`(api.getTeamsByLeague(leagueName)).thenReturn(TeamResponse(teams))
 
         // Act
         val result = repository.getTeamsByLeague(leagueName)
 
         // Assert
-        assertEquals(expectedTeams, result)
+        assertThat(result).hasSize(2)
+        assertThat(result[0].id).isEqualTo("1")
+        assertThat(result[0].name).isEqualTo("Manchester United")
+        assertThat(result[0].logoUrl).isEqualTo("badge_url_1")
         verify(api, times(1)).getTeamsByLeague(leagueName)
     }
 

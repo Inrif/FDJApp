@@ -1,4 +1,4 @@
-package com.abbesolo.fdjapp.features.components
+package com.abbesolo.fdjapp.presentation.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -10,7 +10,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.abbesolo.fdjapp.features.displayModel.DisplayModel
+import com.abbesolo.fdjapp.presentation.displayModel.DisplayModel
 
 @Composable
 fun TeamItem(team: DisplayModel) {

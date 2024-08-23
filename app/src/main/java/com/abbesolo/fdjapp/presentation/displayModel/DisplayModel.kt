@@ -1,4 +1,4 @@
-package com.abbesolo.fdjapp.features.displayModel
+package com.abbesolo.fdjapp.presentation.displayModel
 
 data class DisplayModel(
     val id: String,

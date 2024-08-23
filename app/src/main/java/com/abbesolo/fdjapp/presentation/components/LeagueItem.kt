@@ -1,4 +1,4 @@
-package com.abbesolo.fdjapp.features.components
+package com.abbesolo.fdjapp.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.abbesolo.fdjapp.features.displayModel.DisplayModel
+import com.abbesolo.fdjapp.presentation.displayModel.DisplayModel
 
 @Composable
 fun LeagueItem(league: DisplayModel, onLeagueClick: (DisplayModel) -> Unit) {
